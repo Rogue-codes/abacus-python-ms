@@ -1,12 +1,10 @@
 from django.urls import path
-from . import views, employee_view
+from . import views
 
 urlpatterns = [
-    path('register', views.CreateBusinessView.as_view()),
-    path('verify', views.VerifyBusinessView.as_view()),
-    path('resend-otp', views.ResendOtp.as_view()),
-    path('create-employee', employee_view.CreateEmployeeView.as_view()),
-    path('login', views.BusinessLoginView.as_view(), name=""),
+    path('subscribe', views.CreateSubscriptionView.as_view()),
+    # path('verify', views.VerifyBusinessView.as_view()),
+    # path('resend-otp', views.ResendOtp.as_view()),
     # path('<uuid:id>/activate', views.ActivateTenantView.as_view()),
     # path('task/create/', views.CreateTaskApiview.as_view()),
     # path('tasks/all/', views.MyTaskListApiView.as_view(), name='tasks_list'),
