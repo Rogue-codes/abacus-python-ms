@@ -113,7 +113,8 @@ class BusinessLoginView(generics.GenericAPIView):
                     "is_verified": business.is_verified,
                     "is_active": business.is_active,
                     "currency": business.currency,
-                    "modules": modules
+                    "modules": modules,
+                    "plan": str(business.plan)
                 },            
                 }, status=status.HTTP_200_OK)
 

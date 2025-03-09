@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import dj_database_url
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=*u1uwlc76d(rji$kc8gs(3=9eda@#w=n3@p#c@b6xo7zj+i)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG","False").lower == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -93,6 +94,9 @@ DATABASES = {
     }
 }
 
+# database_url = os.environ.get("database_url")
+
+# DATABASES['default']=dj_database_url.parse(database_url)
 DATABASES['default']=dj_database_url.parse('postgresql://abacus_3v4w_user:wBvkdFDdPM0YAsbP0Z3jqVIVOrUaBbP2@dpg-cv2dq8lumphs739j5510-a.oregon-postgres.render.com/abacus_3v4w')
 
 
