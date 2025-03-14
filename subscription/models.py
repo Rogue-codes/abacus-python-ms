@@ -28,7 +28,7 @@ class Subscription(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     expiry_date = models.DateTimeField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    is_recurring = models.BooleanField(default=False) 
+    is_reocurring = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True) 
     status = models.CharField(max_length=12, choices=Status.choices, default=Status.IN_ACTIVE)
     payment_status = models.CharField(max_length=10, choices=PaymentStatus.choices, default=PaymentStatus.NOT_PAID)

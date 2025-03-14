@@ -8,9 +8,12 @@ from .models import Subscription
 from plan.models import Plan
 from business.models import Business
 from django.conf import settings
+import logging
+import random
 
 def initialize_paystack_transaction(email, amount, business, plan):
-    print(str(business) + " " + str(plan))
+    code = str(random.randint(100000, 999999))
+
     url = "https://api.paystack.co/transaction/initialize"
     
     headers = {
@@ -21,13 +24,15 @@ def initialize_paystack_transaction(email, amount, business, plan):
     data = {
         "email": email,
         "amount": int(amount * 100),
-        "reference": f"subscription.{business}.{plan}",
+        "reference": f"subscription.{business}.{plan}.{code}",
         "metadata": {
             "business": str(business),
             "plan": str(plan)
         }
     }
-    
+
+    logging.basicConfig(level=logging.ERROR)
+
     try:
         response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()  # Raise HTTP errors (4xx, 5xx)
@@ -37,8 +42,14 @@ def initialize_paystack_transaction(email, amount, business, plan):
         return response_data.get("data", {}).get("authorization_url")
     
     except requests.exceptions.RequestException as e:
-        print(f"Paystack API error: {e}")  # Log error
-        return None  
+        error_message = f"Paystack API error: {str(e)}"
+        
+        # If the response object exists, log additional details
+        if hasattr(e, 'response') and e.response is not None:
+            error_message += f"\nResponse Status: {e.response.status_code}\nResponse Body: {e.response.text}"
+        
+        logging.error(error_message)
+        return None
 
 
 

@@ -4,4 +4,4 @@ from rest_framework import serializers
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
-        fields = ['name', 'features', 'price', 'modules'] 
+        fields = ['id', 'name', 'features', 'price', 'modules', 'currency'] 
