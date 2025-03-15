@@ -5,7 +5,7 @@ from plan.serializer import PlanSerializer
 class GetBusinessSerializer(serializers.ModelField):
     class Meta:
         model = Employee
-        fields=['id','modules','first_name','last_name','salary','email','phone','address','is_verified','is_active','business',]
+        fields=['id','modules','first_name','last_name','salary','email','phone','address','is_verified','is_active','business','change_password']
 
 
 class CreateEmployeeSerializer (serializers.ModelSerializer):

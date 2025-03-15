@@ -9,7 +9,7 @@ from plan.models import Plan
 from django.core.mail import send_mail
 from .utils.send_employee_email import send_employee_email
 from django.forms.models import model_to_dict
-
+from configuration.models import Configuration
 
 class CreateEmployeeView(generics.CreateAPIView):
     serializer_class = CreateEmployeeSerializer
@@ -30,8 +30,16 @@ class CreateEmployeeView(generics.CreateAPIView):
         
         if not business.is_verified and not business.is_active:
             raise serializers.ValidationError({"business": "Business is not verified or active"})
+        
+        configuration = Configuration.objects.filter(business=business.id).first()
+
+        config = model_to_dict(configuration)
+
         system_generated_password = generate_sys_password()
-        employee = serializer.save(password=system_generated_password)
+        employee = serializer.save(
+            password=system_generated_password, 
+            change_password=config.get("staff_change_First_password", False)
+        )
 
         send_employee_email(employee, system_generated_password, business.business_name)
 

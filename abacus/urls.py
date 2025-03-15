@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v1/abacus/business/', include('business.urls')),
     path('api/v1/abacus/subscription/', include('subscription.urls')),
     path('api/v1/abacus/plan/', include('plan.urls')),
+    path('api/v1/abacus/configuration/', include('configuration.urls')),
     path('api/v1/abacus/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
