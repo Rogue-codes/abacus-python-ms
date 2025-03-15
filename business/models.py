@@ -60,6 +60,7 @@ class Employee(models.Model):
     address = models.TextField(blank=False, null=False) 
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    change_password = models.BooleanField(default=False)
     salary = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
 
     def __str__(self):
